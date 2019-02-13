@@ -20,6 +20,8 @@
 #include "DeviceDelegateSVR.h"
 #endif
 
+#include <sched.h>
+
 #include <android/looper.h>
 #include <unistd.h>
 #include "VRBrowser.h"
@@ -191,6 +193,20 @@ extern "C" {
 
 void
 android_main(android_app *aAppState) {
+
+  // Restrict Firefox Reality to run on only the two big / fast CPU cores.
+  // TODO: perform different per-device configuration
+
+  // TODO: clarify:
+  // 1) CPU_SET calls correctly for individual processors
+  // 2) If 0 & 1 are the "big" cores
+  // 3) if sched_setaffinity's first argument (tid) is 0 or -1 for "all"
+  cpu_set_t cpus;
+  CPU_ZERO(&cpus);
+  CPU_SET(0, &cpus);
+  CPU_SET(1, &cpus);
+  sched_setaffinity(0, sizeof(cpus), &cpus);
+
 
   if (!ALooper_forThread()) {
     ALooper_prepare(0);
