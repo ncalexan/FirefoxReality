@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/optionsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_background"
+        android:paddingStart="30dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="10dp">
+
+        <org.mozilla.vrbrowser.ui.views.UIButton
+            android:id="@+id/backButton"
+            style="?attr/navigationBarButtonStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_icon_back"
+            android:tint="@color/midnight" />
+
+        <View
+            android:id="@+id/separatorTop"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/backButton"
+            android:layout_marginBottom="0dp"
+            android:background="@color/iron" />
+
+        <ScrollView
+            android:id="@+id/scrollbar"
+            style="@style/scrollbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            android:layout_above="@+id/separatorBottom"
+            android:layout_below="@+id/separatorTop">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <org.mozilla.vrbrowser.ui.views.settings.RadioGroupVSetting
+                    android:id="@+id/environmentRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="75dp"
+                    android:layout_marginTop="0dp"
+                    app:layout="@layout/setting_radio_group_v"
+                    app:options="@array/developer_options_environments"
+                    app:values="@array/developer_options_environments_values"
+                    app:itemMargin="55"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="#000000"
+                        android:scaleType="fitCenter"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/iron" />
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/environment_cave"
+                        android:scaleType="fitCenter"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/iron" />
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/environment_meadow"
+                        android:scaleType="fitCenter"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/iron" />
+
+                    <org.mozilla.vrbrowser.ui.views.settings.SwitchSetting
+                        android:id="@+id/envOverrideSwitch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:description="@string/developer_options_env_override" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+        </ScrollView>
+
+        <View
+            android:id="@+id/separatorBottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@+id/resetButton"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/iron" />
+
+        <org.mozilla.vrbrowser.ui.views.settings.ButtonSetting
+            android:id="@+id/resetButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:buttonText="@string/developer_options_reset_button"
+            app:description="@string/environment_options_reset" />
+    </RelativeLayout>
+</merge>

@@ -23,6 +23,8 @@ public class SwitchSetting extends LinearLayout {
     private TextView mSwitchText;
     private TextView mSwitchDescription;
     private OnCheckedChangeListener mSwitchListener;
+    private String mOnText;
+    private String mOffText;
 
     public SwitchSetting(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -42,6 +44,8 @@ public class SwitchSetting extends LinearLayout {
         inflate(aContext, R.layout.setting_switch, this);
 
         mAudio = AudioEngine.fromContext(aContext);
+        mOnText = aContext.getString(R.string.on);
+        mOffText = aContext.getString(R.string.off);
 
         mSwitchDescription = findViewById(R.id.setting_description);
         mSwitchDescription.setText(mText);
@@ -70,9 +74,7 @@ public class SwitchSetting extends LinearLayout {
         mSwitch.setOnCheckedChangeListener(null);
         mSwitch.setChecked(value);
         mSwitch.setOnCheckedChangeListener(mInternalSwitchListener);
-        mSwitchText.setText(value ?
-                getContext().getString(R.string.on).toUpperCase() :
-                getContext().getString(R.string.off).toUpperCase());
+        updateSwitchText();
 
         if (mSwitchListener != null && doApply) {
             mSwitchListener.onCheckedChanged(mSwitch, value, doApply);
@@ -90,4 +92,24 @@ public class SwitchSetting extends LinearLayout {
     public void setChecked(boolean value) {
         mSwitch.setChecked(value);
     }
+
+
+    public String getDescription() {
+        return mSwitchDescription.getText().toString();
+    }
+
+    private void updateSwitchText() {
+        mSwitchText.setText(mSwitch.isChecked() ? mOnText : mOffText);
+    }
+
+    public void setOnText(String aText) {
+        mOnText = aText;
+        updateSwitchText();
+    }
+
+    public void setOffText(String aText) {
+        mOffText = aText;
+        updateSwitchText();
+    }
+
 }
