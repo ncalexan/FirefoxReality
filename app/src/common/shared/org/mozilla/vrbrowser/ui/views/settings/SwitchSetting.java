@@ -3,6 +3,7 @@ package org.mozilla.vrbrowser.ui.views.settings;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import org.mozilla.vrbrowser.R;
 import org.mozilla.vrbrowser.audio.AudioEngine;
+import org.mozilla.vrbrowser.ui.views.UIButton;
 
 public class SwitchSetting extends LinearLayout {
 
@@ -25,6 +27,7 @@ public class SwitchSetting extends LinearLayout {
     private OnCheckedChangeListener mSwitchListener;
     private String mOnText;
     private String mOffText;
+    private UIButton mHelpButton;
 
     public SwitchSetting(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -55,6 +58,7 @@ public class SwitchSetting extends LinearLayout {
         mSwitch.setSoundEffectsEnabled(false);
 
         mSwitchText = findViewById(R.id.settings_switch_text);
+        mHelpButton = findViewById(R.id.settings_help_button);
     }
 
     private CompoundButton.OnCheckedChangeListener mInternalSwitchListener = new CompoundButton.OnCheckedChangeListener() {
@@ -110,6 +114,15 @@ public class SwitchSetting extends LinearLayout {
     public void setOffText(String aText) {
         mOffText = aText;
         updateSwitchText();
+    }
+
+    public void setHelpDelegate(Runnable aDelegate) {
+        if (aDelegate != null) {
+            mHelpButton.setVisibility(View.VISIBLE);
+            mHelpButton.setOnClickListener(v -> aDelegate.run());
+        } else {
+            mHelpButton.setVisibility(View.GONE);
+        }
     }
 
 }

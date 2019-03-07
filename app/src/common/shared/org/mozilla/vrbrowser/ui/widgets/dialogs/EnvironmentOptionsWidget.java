@@ -12,6 +12,7 @@ import android.widget.ScrollView;
 
 import org.mozilla.vrbrowser.R;
 import org.mozilla.vrbrowser.audio.AudioEngine;
+import org.mozilla.vrbrowser.browser.SessionStore;
 import org.mozilla.vrbrowser.browser.SettingsStore;
 import org.mozilla.vrbrowser.ui.views.UIButton;
 import org.mozilla.vrbrowser.ui.views.settings.ButtonSetting;
@@ -77,6 +78,13 @@ public class EnvironmentOptionsWidget extends UIWidget implements
         mEnvOverrideSwitch = findViewById(R.id.envOverrideSwitch);
         mEnvOverrideSwitch.setOnCheckedChangeListener(mEnvOverrideListener);
         setEnvOverride(SettingsStore.getInstance(getContext()).isEnvironmentOverrideEnabled());
+        mEnvOverrideSwitch.setHelpDelegate(() -> {
+            if (mAudio != null) {
+                mAudio.playSound(AudioEngine.Sound.CLICK);
+            }
+            SessionStore.get().loadUri(getContext().getString(R.string.environment_override_help_url));
+            hide(REMOVE_WIDGET);
+        });
 
         mResetButton = findViewById(R.id.resetButton);
         mResetButton.setOnClickListener(mResetListener);
